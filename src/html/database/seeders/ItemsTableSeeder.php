@@ -1,0 +1,49 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Item;
+
+class ItemsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $item1 = Item::create([
+            'user_id' => $user->id,
+            'name' => 'ナイキ',
+            'brand_name' => 'ナイキ',
+            'description' => 'テスト用の商品です',
+            'price' => 3000,
+            'condition' => 1,
+            'image_path' => 'sample1.jpg',
+            'is_sold' => false,
+        ]);
+
+        $item2 = Item::create([
+            'user_id' => $user->id,
+            'name' => 'サンプル商品2',
+            'brand_name' => 'ユニクロ',
+            'description' => 'テスト用の商品です',
+            'price' => 1500,
+            'condition' => 2,
+            'image_path' => 'sample2.jpg',
+            'is_sold' => false,
+        ]);
+
+        $item1->categories()->attach([1, 4]);
+        $item2->categories()->attach([1, 5]);
+    }
+}
