@@ -21,10 +21,8 @@
             @endforeach
         </ul>
 
-        <p>
-            <strong>売り切れ状態：</strong>
-            {{ $item->purchase ? '売り切れ' : '販売中' }}
-        </p>
+        <p><strong>売り切れ状態：</strong>{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
+        <p>いいね数： {{ $item->likes->count() }}</p>
     </div>
 
     <p>

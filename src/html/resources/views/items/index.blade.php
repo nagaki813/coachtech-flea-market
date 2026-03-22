@@ -18,9 +18,8 @@
                 {{ $category->name }}
             @endforeach
         </p>
-        <p>
-            状態：{{ $item->purchase ? '売り切れ' : '販売中' }}
-        </p>
+        <p>状態：{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
+        <p>いいね数： {{ $item->likes->count() }}</p>
         <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
     </div>
     @endforeach

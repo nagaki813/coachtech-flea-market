@@ -9,7 +9,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with(['categories', 'purchase'])->get();
+        $items = Item::with(['categories', 'purchase', 'likes'])->get();
 
         return view('items.index', compact('items'));
     }

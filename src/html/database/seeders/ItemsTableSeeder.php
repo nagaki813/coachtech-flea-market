@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Item;
 
@@ -15,11 +17,14 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'テストユーザー',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'テストユーザー',            'password' => Hash::make('password'),]
+        );
+
+        DB::table('category_item')->delete();
+        Item::query()->delete();
 
         $item1 = Item::create([
             'user_id' => $user->id,

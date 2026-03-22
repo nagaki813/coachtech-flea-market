@@ -22,8 +22,6 @@ class CreatePurchasesTable extends Migration
             $table->string('address');
             $table->string('building')->nullable();
             $table->timestamps();
-
-            $table->unique('item_id');
         });
     }
 
