@@ -23,6 +23,19 @@
 
         <p><strong>売り切れ状態：</strong>{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
         <p>いいね数： {{ $item->likes->count() }}</p>
+
+        <h3>コメント一覧</h3>
+
+        @if ($item->comments->isEmpty())
+            <p>コメントはまだありません。</p>
+        @else
+            @foreach ($item->comments as $comment)
+                <div style="border:1px solid #ddd; margin-bottom:10px; padding:10px;">
+                    <p>投稿者: {{ $comment->user->name }}</p>
+                    <p>{{ $comment->content }}</p>
+                </div>
+            @endforeach
+        @endif
     </div>
 
     <p>

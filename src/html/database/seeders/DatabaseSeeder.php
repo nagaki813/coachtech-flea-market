@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             ItemsTableSeeder::class,
             LikesTableSeeder::class,
+            CommentsTableSeeder::class,
         ]);
     }
 }
