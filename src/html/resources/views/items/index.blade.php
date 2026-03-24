@@ -34,6 +34,16 @@
             @endif
         </form>
 
+        @if (!$item->purchase)
+            <form action="{{ route('purchases.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
+                <button type="submit">購入する</button>
+            </form>
+        @else
+            <p style="color: red;">売り切れ</p>
+        @endif
+
         <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
     </div>
     @endforeach

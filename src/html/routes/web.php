@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,4 @@ Route::post('/comment', [CommentController::class, 'store']);
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle');
+Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store');

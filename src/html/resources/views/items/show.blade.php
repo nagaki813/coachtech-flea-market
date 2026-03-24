@@ -22,6 +22,25 @@
         </ul>
 
         <p><strong>売り切れ状態：</strong>{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
+
+        @if (session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
+        @if (session('error'))
+            <p style="color: red;">{{ session('error') }}</p>
+        @endif
+
+        @if (!$item->purchase)
+            <form action="{{ route('purchases.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
+                <button type="submit">購入する</button>
+            </form>
+        @else
+            <p style="color: red;">この商品はすでに売り切れです。</p>
+        @endif
+
         <p>いいね数： {{ $item->likes->count() }}</p>
 
         <form action="{{ route('likes.toggle') }}" method="POST">
