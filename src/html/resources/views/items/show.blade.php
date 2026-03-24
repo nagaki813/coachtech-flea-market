@@ -24,7 +24,29 @@
         <p><strong>売り切れ状態：</strong>{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
         <p>いいね数： {{ $item->likes->count() }}</p>
 
+        <form action="{{ route('likes.toggle') }}" method="POST">
+            @csrf
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
+
+            @if ($item->likes->where('user_id', 1)->isNotEmpty())
+                <button type="submit">いいね解除</button>
+            @else
+                <button type="submit">いいねする</button>
+            @endif
+        </form>
+
+        <form action="/comment" method="POST">
+            @csrf
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
+            <textarea name="content"></textarea>
+            @error('content')
+                <p style="color:red;">{{ $message }}</p>
+            @enderror
+            <button type="submit">コメントする</button>
+        </form>
+
         <h3>コメント一覧</h3>
+        <p>コメント数：{{ $item->comments->count() }}</p>
 
         @if ($item->comments->isEmpty())
             <p>コメントはまだありません。</p>
@@ -33,6 +55,13 @@
                 <div style="border:1px solid #ddd; margin-bottom:10px; padding:10px;">
                     <p>投稿者: {{ $comment->user->name }}</p>
                     <p>{{ $comment->content }}</p>
+                    @if ($comment->user_id === 1)
+                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">削除</button>
+                        </form>
+                    @endif
                 </div>
             @endforeach
         @endif

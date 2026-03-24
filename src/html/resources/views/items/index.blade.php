@@ -10,7 +10,10 @@
 
     @foreach ($items as $item)
     <div style="border:1px solid #ccc; margin-bottom: 10px; padding: 10px;">
-        <h2>{{ $item->name }}</h2>
+        <h2>
+            <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
+        </h2>
+
         <p>価格: {{ $item->price }}円</p>
 
         <p>カテゴリ:
@@ -20,6 +23,17 @@
         </p>
         <p>状態：{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
         <p>いいね数： {{ $item->likes->count() }}</p>
+        <form action="{{ route('likes.toggle') }}" method="POST">
+            @csrf
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
+
+            @if ($item->likes->where('user_id', 1)->isNotEmpty())
+                <button type="submit">いいね解除</button>
+            @else
+                <button type="submit">いいねする</button>
+            @endif
+        </form>
+
         <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
     </div>
     @endforeach
