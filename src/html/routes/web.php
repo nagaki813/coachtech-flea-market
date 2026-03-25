@@ -24,4 +24,6 @@ Route::post('/comment', [CommentController::class, 'store']);
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle');
+
+Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
 Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store');

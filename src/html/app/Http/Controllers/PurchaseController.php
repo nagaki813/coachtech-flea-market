@@ -8,8 +8,21 @@ use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
+    public function index()
+    {
+        $userId = 1; // 仮
+
+        $purchases = Purchase::with('item')->where('user_id', $userId)->get();
+
+        return view('purchases.index', compact('purchases'));
+    }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'item_id' => 'required|exists:items,id',
+        ]);
+
         $item = Item::with('purchase')->findOrFail($request->item_id);
 
         if ($item->purchase) {

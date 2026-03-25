@@ -47,5 +47,7 @@
         <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
     </div>
     @endforeach
+
+    <a href="{{ route('purchases.index') }}">購入履歴を見る</a>
 </body>
 </html>
