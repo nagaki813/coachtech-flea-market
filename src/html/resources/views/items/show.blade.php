@@ -32,27 +32,35 @@
         @endif
 
         @if (!$item->purchase)
-            <form action="{{ route('purchases.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="item_id" value="{{ $item->id }}">
-                <button type="submit">購入する</button>
-            </form>
+            @auth
+                <form action="{{ route('purchases.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <button type="submit">購入する</button>
+                </form>
+            @else
+                <p>購入するにはログインしてください</p>
+            @endauth
         @else
             <p style="color: red;">この商品はすでに売り切れです。</p>
         @endif
 
         <p>いいね数： {{ $item->likes->count() }}</p>
 
-        <form action="{{ route('likes.toggle') }}" method="POST">
-            @csrf
-            <input type="hidden" name="item_id" value="{{ $item->id }}">
+        @auth
+            <form action="{{ route('likes.toggle') }}" method="POST">
+                @csrf
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
 
-            @if ($item->likes->where('user_id', 1)->isNotEmpty())
-                <button type="submit">いいね解除</button>
-            @else
-                <button type="submit">いいねする</button>
-            @endif
-        </form>
+                @if ($item->likes->where('user_id', auth()->id())->isNotEmpty())
+                    <button type="submit">いいね解除</button>
+                @else
+                    <button type="submit">いいねする</button>
+                @endif
+            </form>
+        @else
+            <p>いいねするにはログインしてください</p>
+        @endauth
 
         <form action="/comment" method="POST">
             @csrf
@@ -74,7 +82,7 @@
                 <div style="border:1px solid #ddd; margin-bottom:10px; padding:10px;">
                     <p>投稿者: {{ $comment->user->name }}</p>
                     <p>{{ $comment->content }}</p>
-                    @if ($comment->user_id === 1)
+                    @if ($comment->user_id === auth()->id())
                         <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                             @csrf
                             @method('DELETE')

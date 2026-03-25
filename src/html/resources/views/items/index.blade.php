@@ -23,31 +23,44 @@
         </p>
         <p>状態：{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
         <p>いいね数： {{ $item->likes->count() }}</p>
-        <form action="{{ route('likes.toggle') }}" method="POST">
-            @csrf
-            <input type="hidden" name="item_id" value="{{ $item->id }}">
-
-            @if ($item->likes->where('user_id', 1)->isNotEmpty())
-                <button type="submit">いいね解除</button>
-            @else
-                <button type="submit">いいねする</button>
-            @endif
-        </form>
-
-        @if (!$item->purchase)
-            <form action="{{ route('purchases.store') }}" method="POST">
+        @auth
+            <form action="{{ route('likes.toggle') }}" method="POST">
                 @csrf
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
-                <button type="submit">購入する</button>
+
+                @if ($item->likes->where('user_id', auth()->id())->isNotEmpty())
+                    <button type="submit">いいね解除</button>
+                @else
+                    <button type="submit">いいねする</button>
+                @endif
             </form>
         @else
-            <p style="color: red;">売り切れ</p>
-        @endif
+            <p>いいねするにはログインしてください</p>
+        @endauth
 
+        @if (!$item->purchase)
+            @auth
+                <form action="{{ route('purchases.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <button type="submit">購入する</button>
+                </form>
+            @else
+                <p style="color: red;">売り切れ</p>
+            @endif
+        @else
+            <p>購入するにはログインしてください</p>
+        @endauth
         <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
     </div>
     @endforeach
 
     <a href="{{ route('purchases.index') }}">購入履歴を見る</a>
+    @auth
+        <form action="/logout" method="POST">
+            @csrf
+            <button type="submit">ログアウト</button>
+        </form>
+    @endauth
 </body>
 </html>

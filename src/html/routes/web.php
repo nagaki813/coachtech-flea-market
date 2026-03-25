@@ -20,10 +20,10 @@ use App\Http\Controllers\PurchaseController;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('item/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::post('/comment', [CommentController::class, 'store']);
-Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::post('/comment', [CommentController::class, 'store'])->middleware('auth');
+Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware('auth');
 
-Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle');
+Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle')->middleware('auth');
 
-Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store');
+Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index')->middleware('auth');
+Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store')->middleware('auth');

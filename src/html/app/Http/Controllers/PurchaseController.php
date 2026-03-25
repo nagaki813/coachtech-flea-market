@@ -10,7 +10,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $userId = 1; // 仮
+        $userId = auth()->id();
 
         $purchases = Purchase::with('item')->where('user_id', $userId)->get();
 
@@ -30,11 +30,11 @@ class PurchaseController extends Controller
         }
 
         Purchase::create([
-            'user_id' => 1, // 仮
+            'user_id' => auth()->id(),
             'item_id' => $item->id,
-            'payment_method' => 'コンビニ払い', // 仮
-            'postal_code' => '000-0000', // 仮
-            'address' => '仮住所', // 仮
+            'payment_method' => 'コンビニ払い',
+            'postal_code' => '000-0000',
+            'address' => '仮住所',
             'building' => null,
         ]);
 

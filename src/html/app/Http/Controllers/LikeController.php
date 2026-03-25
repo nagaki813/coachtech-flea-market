@@ -9,7 +9,7 @@ class LikeController extends Controller
 {
     public function toggle(Request $request)
     {
-        $userId = 1; //　仮。ログイン実装後にauth()->id()に差し替え
+        $userId = auth()->id();
 
         $like = Like::where('user_id', $userId)
             ->where('item_id', $request->item_id)
