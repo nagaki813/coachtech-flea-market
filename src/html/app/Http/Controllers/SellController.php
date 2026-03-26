@@ -18,6 +18,7 @@ class SellController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:255',
             'brand_name' => 'nullable|max:255',
             'description' => 'required|max:1000',
@@ -25,6 +26,8 @@ class SellController extends Controller
             'condition' => 'required|integer',
             'categories' => 'required|array',
         ]);
+
+        $imagePath = $request->file('image')->store('items', 'public');
 
         $item = Item::create([
             'user_id' => Auth::id(),

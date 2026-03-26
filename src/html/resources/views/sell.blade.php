@@ -6,8 +6,13 @@
 <div class="sell-container">
     <h2>商品を出品する</h2>
 
-    <form action="{{ route('sell.store') }}" method="POST">
+    <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        <div>
+            <label>商品画像</label>
+            <input type="file" name="image">
+        </div>
 
         <div>
             <label>商品名</label>
@@ -33,9 +38,9 @@
         <div>
             <label>状態</label>
             <select name="condition">
-                <option value="1">良好</option>
-                <option value="2">キズ、スレ有り</option>
-                <option value="3">ジャンク品</option>
+                <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
+                <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>キズ、スレ有り</option>
+                <option value="3" {{ old('condition') == 3 'selected' : '' }}>ジャンク品</option>
             </select>
         </div>
 
@@ -43,7 +48,7 @@
             <label>カテゴリ</label>
             @foreach ($categories as $category)
                 <label>
-                    <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                    <input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ is_array(old('categories')) && in_array($category->id, old('categories')) ? 'checked' : '' }}>
                     {{ $category->name }}
                 </label>
             @endforeach

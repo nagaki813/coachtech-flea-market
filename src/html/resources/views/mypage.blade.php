@@ -41,6 +41,7 @@
                 <div class="item-list">
                     @foreach ($sellItems as $item)
                         <div class="item-card">
+                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
                             <h4>{{ $item->name }}</h4>
                             <p>価格：￥{{ number_format($item->price) }}</p>
 
