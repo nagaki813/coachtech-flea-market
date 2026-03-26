@@ -19,6 +19,10 @@ class MypageController extends Controller
             $query->where('user_id', $user->id);
         })->latest()->get();
 
-        return view('mypage', compact('user', 'page', 'sellItems', 'buyItems'));
+        $likeItems = Item::with(['categories', 'purchase'])->whereHas('likes', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->latest()->get();
+
+        return view('mypage', compact('user', 'page', 'sellItems', 'buyItems', 'likeItems'));
     }
 }

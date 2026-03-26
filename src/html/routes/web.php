@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\SellController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,9 @@ Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.
 
 Route::middleware('auth')->group(function() {
     Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage');
+});
+
+Route::middleware('auth')->group(function() {
+    Route::get('/sell', [SellController::class, 'create'])->name('sell.create');
+    Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
 });
