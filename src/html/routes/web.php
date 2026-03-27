@@ -7,6 +7,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,6 @@ Route::middleware('auth')->group(function() {
 Route::middleware('auth')->group(function() {
     Route::get('/sell', [SellController::class, 'create'])->name('sell.create');
     Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });

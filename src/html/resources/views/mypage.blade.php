@@ -24,6 +24,8 @@
             @else
                 <p>プロフィール画像：未設定</p>
             @endif
+
+            <a href="{{ route('profile.edit') }}">プロフィールを編集する</a>
         </div>
 
         <div class="mypage-pages">
