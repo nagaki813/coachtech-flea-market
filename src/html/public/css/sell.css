@@ -1,0 +1,66 @@
+.sell-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.sell-container h2 {
+    margin-bottom: 30px;
+}
+
+.sell-form-group {
+    margin-bottom: 24px;
+}
+
+.sell-form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.sell-form-group input[type="text"],
+.sell-form-group input[type="number"],
+.sell-form-group input[type="file"],
+.sell-form-group textarea,
+.sell-form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.sell-form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.category-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.category-group label {
+    font-weight: normal;
+}
+
+.error-message {
+    color: #d33;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.sell-submit-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #333;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}

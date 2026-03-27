@@ -10,6 +10,11 @@
 
     @foreach ($items as $item)
     <div style="border:1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+        @if (!empty($item->image_path))
+            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="150">
+        @else
+            <p>画像無し</p>
+        @endif
         <h2>
             <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
         </h2>

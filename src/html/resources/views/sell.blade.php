@@ -2,6 +2,10 @@
 
 @section('title', '出品')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/sel.css') }}">
+@endsection
+
 @section('content')
 <div class="sell-container">
     <h2>商品を出品する</h2>
@@ -12,27 +16,41 @@
         <div>
             <label>商品画像</label>
             <input type="file" name="image">
+            @error('image')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label>商品名</label>
             <input type="text" name="name" value="{{ old('name') }}">
+            @error('name')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label>ブランド名</label>
             <input type="text" name="brand_name" value="{{ old('brand_name') }}">
+            @error('brand_name')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label>説明</label>
             <textarea name="description">{{ old('description') }}</textarea>
+            @error('description')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label>価格</label>
-            <input type="number" name="price" value="{{ old('b
-            price') }}">
+            <input type="number" name="price" value="{{ old('price') }}">
+            @error('price')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -40,8 +58,11 @@
             <select name="condition">
                 <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
                 <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>キズ、スレ有り</option>
-                <option value="3" {{ old('condition') == 3 'selected' : '' }}>ジャンク品</option>
+                <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>ジャンク品</option>
             </select>
+            @error('condition')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -52,6 +73,9 @@
                     {{ $category->name }}
                 </label>
             @endforeach
+            @error('categories')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <button type="submit">出品する</button>

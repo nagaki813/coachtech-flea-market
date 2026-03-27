@@ -36,7 +36,7 @@ class SellController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'condition' => $request->condition,
-            'image_path' => 'sample.jpg',
+            'image_path' => $request->file('image')->store('items', 'public'),
             'is_sold' => false,
         ]);
 

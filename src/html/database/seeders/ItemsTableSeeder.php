@@ -20,7 +20,7 @@ class ItemsTableSeeder extends Seeder
         $user = User::firstOrCreate(
             ['email' => 'test@example.com'],
             [
-                'name' => 'テストユーザー',            'password' => Hash::make('password'),]
+                'name' => 'テストユーザー', 'password' => Hash::make('password'),]
         );
 
         DB::table('category_item')->delete();
@@ -33,7 +33,7 @@ class ItemsTableSeeder extends Seeder
             'description' => 'テスト用の商品です',
             'price' => 3000,
             'condition' => 1,
-            'image_path' => 'sample1.jpg',
+            'image_path' => 'items/sample1.jpg',
             'is_sold' => false,
         ]);
 
@@ -44,7 +44,7 @@ class ItemsTableSeeder extends Seeder
             'description' => 'テスト用の商品です',
             'price' => 1500,
             'condition' => 2,
-            'image_path' => 'sample2.jpg',
+            'image_path' => 'items/sample2.jpg',
             'is_sold' => false,
         ]);
 

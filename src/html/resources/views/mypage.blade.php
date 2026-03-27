@@ -41,7 +41,11 @@
                 <div class="item-list">
                     @foreach ($sellItems as $item)
                         <div class="item-card">
-                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
+                            @if (!empty($item->image_path))
+                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
+                            @else
+                                <p>画像無し</p>
+                            @endif
                             <h4>{{ $item->name }}</h4>
                             <p>価格：￥{{ number_format($item->price) }}</p>
 
@@ -77,6 +81,11 @@
                 <div class="item-list">
                     @foreach ($buyItems as $item)
                         <div class="item-card">
+                            @if (!empty($item->image_path))
+                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
+                            @else
+                                <p>画像無し</p>
+                            @endif
                          <h4>{{ $item->name }}</h4>
                          <p>価格：￥{{ number_format($item->price) }}</p>
 
@@ -108,6 +117,11 @@
                 <div class="item-list">
                     @foreach ($likeItems as $item)
                      <div class="item-card">
+                        @if (!empty($item->image_path))
+                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
+                            @else
+                                <p>画像無し</p>
+                            @endif
                             <h4>{{ $item->name }}</h4>
                             <p>価格：￥{{ number_format($item->price) }}</p>
 

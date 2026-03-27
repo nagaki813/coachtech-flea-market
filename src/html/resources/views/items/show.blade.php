@@ -9,6 +9,11 @@
     <h1>商品詳細</h1>
 
     <div style="border:1px solid #ccc; padding:10ppx;">
+        @if (!empty($item->image_path))
+            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="250">
+        @else
+            <p>画像無し</p>
+        @endif
         <h2>{{ $item->name }}</h2>
         <p><strong>商品名：</strong>{{ $item->name }}</p>
         <p><strong>ブランド名：</strong>{{ $item->brand_name ?? '未設定' }}</p>

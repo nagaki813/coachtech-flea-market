@@ -40,3 +40,13 @@
 .item-card h4 {
     margin-top: 0;
 }
+
+.item-card img {
+    width: 100%;
+    max-width: 220px;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
