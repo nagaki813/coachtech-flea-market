@@ -1,13 +1,17 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f8f8f8;
+    font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: #f5f5f5;
     color: #333;
 }
 
 a {
     color: inherit;
     text-decoration: none;
+}
+
+img {
+    display: block;
 }
 
 .header {
@@ -17,15 +21,29 @@ a {
 }
 
 .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 30px;
+}
+
+.header-logo {
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .header-nav {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
+}
+
+.header-nav a {
+    font-size: 14px;
+    color: #333;
 }
 
 .header-nav form {
@@ -33,15 +51,16 @@ a {
 }
 
 .header-nav button {
-    padding: 8px 14px;
+    padding: 8px 16px;
     border: none;
+    border-radius: 6px;
     background: #333;
     color: #fff;
     cursor: pointer;
 }
 
 .main {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 40px 20px;
 }

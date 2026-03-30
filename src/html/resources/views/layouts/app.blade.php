@@ -10,14 +10,15 @@
 <body>
     <header class="header">
         <div class="header-inner">
-            <h1>フリマアプリ</h1>
+            <h1 class="header-logo">フリマアプリ</h1>
 
             <nav class="header-nav">
                 <a href="/">商品一覧</a>
                 <a href="{{ route('mypage') }}">マイページ</a>
+                <a href="{{ route('sell.create') }}">出品</a>
 
                 @auth
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit">ログアウト</button>
                     </form>

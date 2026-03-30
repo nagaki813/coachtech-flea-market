@@ -25,7 +25,7 @@
                 <p>プロフィール画像：未設定</p>
             @endif
 
-            <a href="{{ route('profile.edit') }}">プロフィールを編集する</a>
+            <a class="profile-edit-link" href="{{ route('profile.edit') }}">プロフィールを編集する</a>
         </div>
 
         <div class="mypage-pages">
@@ -35,7 +35,7 @@
         </div>
 
         @if ($page === 'sell')
-            <h3>出品した商品一覧</h3>
+            <h3 class="mypage-section-title">出品した商品一覧</h3>
 
             @if ($sellItems->isEmpty())
                 <p>出品した商品はありません。</p>
@@ -75,7 +75,7 @@
         @endif
 
         @if ($page === 'buy')
-            <h3>購入した商品一覧</h3>
+            <h3 class="mypage-section-title">購入した商品一覧</h3>
 
             @if ($buyItems->isEmpty())
                 <p>購入した商品はありません。</p>
@@ -111,7 +111,7 @@
         @endif
 
         @if ($page === 'like')
-            <h3>いいねした商品一覧</h3>
+            <h3 class="mypage-section-title">いいねした商品一覧</h3>
 
             @if ($likeItems->isEmpty())
                 <p>いいねした商品はありません。</p>

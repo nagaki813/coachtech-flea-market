@@ -3,7 +3,7 @@
 @section('title', '出品')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/sel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sell.css') }}">
 @endsection
 
 @section('content')
@@ -13,12 +13,16 @@
     <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div>
-            <label>商品画像</label>
-            <input type="file" name="image">
-            @error('image')
-                <p>{{ $message }}</p>
-            @enderror
+        <div class="sell-form-row">
+            <div class="sell-form-label">
+                <label for="image">商品画像</label>
+            </div>
+            <div class="sell-form-input">
+                <input type="file" name="image">
+                @error('image')
+                    <p>{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         <div>

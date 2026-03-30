@@ -2,12 +2,14 @@
     max-width: 800px;
     margin: 0 auto;
     background: #fff;
-    padding: 30px;
-    border-radius: 8px;
+    border-radius: 10px;
+    padding: 40px;
 }
 
 .sell-container h2 {
+    margin-top: 0;
     margin-bottom: 30px;
+    font-size: 32px;
 }
 
 .sell-form-group {
@@ -26,41 +28,45 @@
 .sell-form-group textarea,
 .sell-form-group select {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
 .sell-form-group textarea {
-    min-height: 140px;
+    min-height: 150px;
     resize: vertical;
 }
 
 .category-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 14px;
 }
 
 .category-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: normal;
 }
 
 .error-message {
+    margin-top: 8px;
     color: #d33;
-    margin-top: 6px;
     font-size: 14px;
 }
 
 .sell-submit-button {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
+    border-radius: 8px;
     background: #333;
     color: #fff;
-    border-radius: 6px;
-    cursor: pointer;
     font-size: 16px;
+    cursor: pointer;
 }
