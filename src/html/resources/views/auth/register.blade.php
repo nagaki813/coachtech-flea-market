@@ -1,48 +1,52 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会員登録</title>
-</head>
-<body>
-    <h1>会員登録</h1>
+@extends('layouts.app')
+
+@section('title', '会員登録')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+@endsection
+
+@section('content')
+<div class="auth-container">
+    <h2>会員登録</h2>
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div>
-            <label>名前</label>
-            <input type="text" name="name" value="{{ old('name') }}">
+        <div class="auth-form-group">
+            <label for=name">ユーザー名</label>
+            <input id="name" type="text" name="name" value="{{ old('name') }}">
             @error('name')
-                <p style="color: red;">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
-            <label>メールアドレス</label>
-            <input type="email" name="email" value="{{ old('email') }}">
+        <div class="auth-form-group">
+            <label for="email">メールアドレス</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}">
             @error('email')
-                <p style="color: red;">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
-            <label>パスワード</label>
-            <input type="password" name="password">
+        <div class="auth-form-group">
+            <label for="password">パスワード</label>
+            <input id="password" type="password" name="password">
             @error('password')
-                <p style="color: red;">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
-            <label>パスワード確認</label>
-            <input type="password" name="password_confirmation">
+        <div class="auth-form-group">
+            <label for="password_confirmation">確認用パスワード</label>
+            <input id="password_confirmation" type="password" name="password_confirmation">
         </div>
 
-        <button type="submit">登録</button>
+        <button class="auth-submit-button" type="submit">登録する</button>
     </form>
 
-    <p><a href="{{ route('login') }}">ログインはこちら</a></p>
-</body>
-</html>
+    <div class="auth-link">
+        <a href="{{ route('login') }}">ログインはこちら</a>
+    </div>
+</div>
+@endsection

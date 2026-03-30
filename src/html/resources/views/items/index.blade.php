@@ -1,71 +1,80 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品一覧</title>
-</head>
-<body>
-    <h1>商品一覧</h1>
+@extends('layouts.app')
 
-    @foreach ($items as $item)
-    <div style="border:1px solid #ccc; margin-bottom: 10px; padding: 10px;">
-        @if (!empty($item->image_path))
-            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="150">
-        @else
-            <p>画像無し</p>
-        @endif
-        <h2>
-            <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
-        </h2>
+@section('title', '商品一覧')
 
-        <p>価格: {{ $item->price }}円</p>
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/items.css') }}">
+@endsection
 
-        <p>カテゴリ:
-            @foreach ($item->categories as $category)
-                {{ $category->name }}
-            @endforeach
-        </p>
-        <p>状態：{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
-        <p>いいね数： {{ $item->likes->count() }}</p>
-        @auth
-            <form action="{{ route('likes.toggle') }}" method="POST">
-                @csrf
-                <input type="hidden" name="item_id" value="{{ $item->id }}">
+@section('content')
+<div class="items-container">
+    <h2 class="items-container">商品一覧</h2>
 
-                @if ($item->likes->where('user_id', auth()->id())->isNotEmpty())
-                    <button type="submit">いいね解除</button>
+    <div class="item-grid">
+        @foreach ($items as $item)
+            <div class="item-card">
+                @if (!empty($item->image_path))
+                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="150">
                 @else
-                    <button type="submit">いいねする</button>
+                    <div class="item-card-image item-card-image--empty">画像無し</div>
                 @endif
-            </form>
-        @else
-            <p>いいねするにはログインしてください</p>
-        @endauth
 
-        @if (!$item->purchase)
-            @auth
-                <form action="{{ route('purchases.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="item_id" value="{{ $item->id }}">
-                    <button type="submit">購入する</button>
-                </form>
-            @else
-                <p style="color: red;">売り切れ</p>
-            @endif
-        @else
-            <p>購入するにはログインしてください</p>
-        @endauth
-        <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
+                <h3 class="item-card-title">
+                    <a href="{{ route('items.show', $item->id) }}">{{ $item->name }}</a>
+                </h3>
+
+                <p>価格：{{ number_format($item->price) }}円</p>
+                <p>
+                    カテゴリ:
+                    @foreach ($item->categories as $category)
+                        {{ $category->name }}
+                    @endforeach
+                </p>
+                <p>状態：{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
+                <p>いいね数： {{ $item->likes->count() }}</p>
+
+                @auth
+                    <form class="inline-form" action="{{ route('likes.toggle') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        @if ($item->likes->where('user_id', auth()->id())->isNotEmpty())
+                            <button class="sub-button" type="submit">いいね解除</button>
+                        @else
+                            <button class="sub-button" type="submit">いいねする</button>
+                        @endif
+                    </form>
+                @else
+                    <p>いいねするにはログインしてください</p>
+                @endauth
+
+                @if (!$item->purchase)
+                    @auth
+                        <form class="inline-form" action="{{ route('purchases.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="item_id" value="{{ $item->id }}">
+                            <button class="main-button" type="submit">購入する</button>
+                        </form>
+                    @else
+                        <p>購入するにはログインしてください</p>
+                    @endauth
+                @else
+                    <p class="sold-text">売り切れ</p>
+                @endif
+
+                <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
+            </div>
+        @endforeach
     </div>
-    @endforeach
 
-    <a href="{{ route('purchases.index') }}">購入履歴を見る</a>
+    <div class="page-links">
+        <a href="{{ route('purchases.index') }}">購入履歴を見る</a>
+    </div>
+
     @auth
         <form action="/logout" method="POST">
             @csrf
             <button type="submit">ログアウト</button>
         </form>
     @endauth
-</body>
-</html>
+</div>
+@endsection

@@ -1,5 +1,5 @@
 .sell-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     background: #fff;
     border-radius: 10px;
@@ -8,45 +8,50 @@
 
 .sell-container h2 {
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
     font-size: 32px;
 }
 
-.sell-form-group {
+.sell-form-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    align-items: start;
     margin-bottom: 24px;
 }
 
-.sell-form-group label {
+.sell-form-label label {
     display: block;
     font-weight: bold;
-    margin-bottom: 8px;
+    padding-top: 12px;
 }
 
-.sell-form-group input[type="text"],
-.sell-form-group input[type="number"],
-.sell-form-group input[type="file"],
-.sell-form-group textarea,
-.sell-form-group select {
+.sell-form-input input[type="text"],
+.sell-form-input input[type="number"],
+.sell-form-input input[type="file"],
+.sell-form-input textarea,
+.sell-form-input select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-sizing: border-box;
     font-size: 14px;
+    background: #fff;
 }
 
-.sell-form-group textarea {
-    min-height: 150px;
+.sell-form-input textarea {
+    min-height: 160px;
     resize: vertical;
 }
 
 .category-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px 16px;
 }
 
-.category-group label {
+.category item {
     display: flex;
     align-items: center;
     gap: 6px;

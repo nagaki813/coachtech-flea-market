@@ -1,35 +1,39 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン</title>
-</head>
-<body>
-    <h1>ログイン</h1>
+@extends('layouts.app')
+
+@section('title', 'ログイン')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+@endsection
+
+@section('content')
+<div class="auth-container">
+    <h2>ログイン</h2>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div>
+        <div class="auth-form-group">
             <label>メールアドレス</label>
-            <input type="email" name="email" value="{{ old('email') }}">
+            <input id="email" type="email" name="email" value="{{ old('email') }}">
             @error('email')
-                <p style="color: red;">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
-            <label>パスワード</label>
-            <input type="password" name="password">
+        <div class="auth-form-group">
+            <label for="password">パスワード</label>
+            <input id="password" type="password" name="password">
             @error('password')
-                <p style="color: red;">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
-        <button type="submit">ログイン</button>
+        <button class="auth-submit-button" type="submit">ログイン</button>
     </form>
 
-    <p><a href="{{ route('register') }}">会員登録はこちら</a></p>
-</body>
-</html>
+    <div class="auth-link">
+        <a href="{{ route('register') }}">会員登録はこちら</a>
+    </div>
+</div>
+@endsection
