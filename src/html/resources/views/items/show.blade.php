@@ -45,11 +45,7 @@
 
         @if (!$item->purchase)
             @auth
-                <form class="inline-form" action="{{ route('purchases.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="item_id" value="{{ $item->id }}">
-                    <button type="submit">購入する</button>
-                </form>
+                <a class="main-button" href="{{ route('purchases.create', $item->id) }}">購入する</a>
             @else
                 <p>購入するにはログインしてください</p>
             @endauth

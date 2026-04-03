@@ -29,7 +29,10 @@ Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name
 Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle')->middleware('auth');
 
 Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index')->middleware('auth');
+Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchases.create');
 Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store')->middleware('auth');
+Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchases.address.edit')->middleware('auth');
+Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchases.address.update')->middleware('auth');
 
 Route::middleware('auth')->group(function() {
     Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage');

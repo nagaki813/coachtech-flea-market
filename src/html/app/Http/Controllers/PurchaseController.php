@@ -19,10 +19,6 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'item_id' => 'required|exists:items,id',
-        ]);
-
         $item = Item::with('purchase')->findOrFail($request->item_id);
 
         if ($item->purchase) {
@@ -32,12 +28,57 @@ class PurchaseController extends Controller
         Purchase::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
-            'payment_method' => 'コンビニ払い',
-            'postal_code' => '000-0000',
-            'address' => '仮住所',
-            'building' => null,
+            'payment_method' => $request->payment_method,
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
+            'building' => $request->building,
         ]);
 
-        return redirect()->route('items.show', $item->id)->with('success', '購入が完了しました。');
+        session()->forget('purchase_address');
+
+        return redirect('/mypage?page=buy')->with('success', '購入しました');
+    }
+
+    public function create($item_id)
+    {
+        $item = Item::with('user', 'purchase')->findOrFail($item_id);
+
+        if ($item->purchase) {
+            return redirect()->back()->with('error', 'この商品は売り切れです');
+        }
+
+        $address = session('purchase_address') ?? [
+            'postal_code' => auth()->user()->postal_code,
+            'address' => auth()->user()->address,
+            'building' => auth()->user()->building,
+        ];
+
+        return view('purchases.confirm', compact('item', 'address'));
+    }
+
+    public function editAddress($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        $address = session('purchase_address') ?? [
+            'postal_code' => auth()->user()->postal_code,
+            'address' => auth()->user()->address,
+            'building' => auth()->user()->building,
+        ];
+
+        return view('purchases.address', compact('item', 'address'));
+    }
+
+    public function updateAddress(Request $request, $item_id)
+    {
+        $data = [
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
+            'building' => $request->building,
+        ];
+
+        session(['purchase_address' => $data]);
+
+        return redirect()->route('purchases.create', $item_id);
     }
 }
