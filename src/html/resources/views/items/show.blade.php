@@ -79,7 +79,7 @@
         <form action="/comment" method="POST">
             @csrf
             <input type="hidden" name="item_id" value="{{ $item->id }}">
-            <textarea class="comment-textarea" name="content"></textarea>
+            <textarea class="comment-textarea" name="content">{{ old('content') }}</textarea>
             @error('content')
                 <p class="error-message">{{ $message }}</p>
             @enderror
@@ -96,13 +96,15 @@
                 <div class="comment-card">
                     <p>投稿者: {{ $comment->user->name }}</p>
                     <p>{{ $comment->content }}</p>
-                    @if ($comment->user_id === auth()->id())
-                        <form class="inline-form" action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="sub-button" type="submit">削除</button>
-                        </form>
-                    @endif
+                    @auth
+                        @if ($comment->user_id === auth()->id())
+                            <form class="inline-form" action="{{ route('comments.destroy',  $comment->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="sub-button" type="submit">削除</button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             @endforeach
         @endif

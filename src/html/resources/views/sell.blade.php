@@ -20,7 +20,7 @@
             <div class="sell-form-input">
                 <input id="image" type="file" name="image">
                 @error('image')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="sell-form-input">
                 <input id="name" type="text" name="name" value="{{ old('name') }}">
                 @error('name')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="sell-form-input">
                 <input id="brand_name" type="text" name="brand_name" value="{{ old('brand_name') }}">
                 @error('brand_name')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="sell-form-input">
                 <textarea id="description" name="description">{{ old('description') }}</textarea>
                 @error('description')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="sell-form-input">
                <input id="price" type="number" name="price" value="{{ old('price') }}">
                 @error('price')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -84,7 +84,7 @@
                     <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>ジャンク品</option>
                 </select>
                 @error('condition')
-                    <p>{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
