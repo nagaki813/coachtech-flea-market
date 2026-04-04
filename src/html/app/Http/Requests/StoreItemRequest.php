@@ -24,17 +24,18 @@ class StoreItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'brand_name' => ['nullable', 'string', 'max:255'],
             'price' => ['required', 'integer', 'min:0'],
-            'description' => ['required', 'max:255'],
-            'condition' => ['required'],
-            'categories' => ['required', 'array'],
+            'description' => ['required', 'string', 'max:255'],
+            'condition' => ['required', 'integer', 'in:1,2,3,4'],
+            'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['exists:categories,id'],
             'image' => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => '商品名を入力してください',
@@ -47,7 +48,7 @@ class StoreItemRequest extends FormRequest
             'image.required' => '商品画像を選択してください',
             'image.image' => '画像ファイルを選択してください',
             'image.mimes' => '画像はJPEGまたはPNG形式でアップロードしてください',
-            'image.max' => '画像は2MG以内にしてください',
+            'image.max' => '画像は2MB以内にしてください',
         ];
     }
 }

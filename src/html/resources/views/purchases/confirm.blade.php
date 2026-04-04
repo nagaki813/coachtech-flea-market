@@ -15,6 +15,7 @@
     <form action="{{ route('purchases.store') }}" method="POST">
         @csrf
         <input type="hidden" name="item_id" value="{{ $item->id }}">
+        <input type="hidden" name="payment_method" value="{{ $data['payment_method'] }}">
         <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
         <input type="hidden" name="address" value="{{ $address['address'] }}">
         <input type="hidden" name="building" value="{{ $address['building'] }}">

@@ -78,10 +78,11 @@
                 <label for="condition">状態</label>
             </div>
             <div class="sell-form-input">
-                <select name="condition">
+                <select id="condition" name="condition">
                     <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
-                    <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>キズ、スレ有り</option>
-                    <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>ジャンク品</option>
+                    <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>目立った傷や汚れ無し</option>
+                    <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>やや傷や汚れあり</option>
+                    <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
                 </select>
                 @error('condition')
                     <p class="error-message">{{ $message }}</p>

@@ -25,13 +25,13 @@
             <p><strong>ブランド名：</strong>{{ $item->brand_name ?? '未設定' }}</p>
             <p><strong>説明：</strong>{{ $item->description }}</p>
             <p><strong>価格：</strong>{{ number_format($item->price) }}円</p>
-            <p><strong>カテゴリ：</strong></p>
-
+            <p><strong>カテゴリー：</strong></p>
             <ul class="category-list">
                 @foreach ($item->categories as $category)
                     <li>{{ $category->name }}</li>
                 @endforeach
             </ul>
+            <p><strong>商品の状態：</strong>{{ $item->condition }}</p>
 
             <p><strong>売り切れ状態：</strong>{{ $item->purchase ? '売り切れ' : '販売中' }}</p>
 

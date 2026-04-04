@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
 use App\Http\Requests\StoreItemRequest;
@@ -17,24 +16,25 @@ class SellController extends Controller
 
     public function store(StoreItemRequest $request)
     {
-        $data = [
-            'user_id' => Auth::id(),
-            'name' => $request->name,
-            'brand_name' => $request->brand_name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'condition' => $request->condition,
+        $data = $request->validated();
+
+        $itemData = [
+            'user_id' => auth()->id(),
+            'name' => $data['name'],
+            'brand_name' => $data['brand_name'] ?? null,
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'condition' => $data['condition'],
         ];
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('items', 'public');
-            $data['image_path'] = $imagePath;
+            $itemData['image_path'] = $request->file('image')->store('items', 'public');
         }
 
-        $item = Item::create($data);
+        $item = Item::create($itemData);
 
-        $item->categories()->attach($request->categories);
+        $item->categories()->attach($data['categories']);
 
-        return redirect('/mypage?page=sell');
+        return redirect()->route('mypage', ['page' => 'sell']);
     }
 }

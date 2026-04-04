@@ -21,7 +21,7 @@ class StoreCommentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'item_id' => ['required', 'exists:items,id'],
@@ -29,7 +29,7 @@ class StoreCommentRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'item_id.required' => '商品情報が不足しています',

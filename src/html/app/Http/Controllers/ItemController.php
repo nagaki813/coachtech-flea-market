@@ -11,17 +11,19 @@ class ItemController extends Controller
     {
         $tab = $request->query('tab', 'all');
 
+        $query = Item::with(['user', 'categories', 'purchase', 'likes'])->latest();
+
         if ($tab === 'mylist') {
             if(!auth()->check()) {
                 return redirect()->route('login');
             }
 
-            $items = Item::with(['user', 'categories', 'purchase', 'likes'])->whereHas('likes', function ($query) {
+            $query->whereHas('likes', function ($query) {
                 $query->where('user_id', auth()->id());
-            })->latest()->get();
-        } else {
-            $items = Item::with(['user', 'categories', 'likes', 'purchase'])->latest()->get();
+            });
         }
+
+        $items = $query->get();
 
         return view('items.index', compact('items', 'tab'));
     }
