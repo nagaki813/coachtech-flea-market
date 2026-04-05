@@ -48,4 +48,14 @@ class Item extends Model
     {
         return $this->hasOne(Purchase::class);
     }
+
+    public function getConditionLabelAttribute(): string
+    {
+        return [
+            1 => '良好',
+            2 => '目立った傷や汚れ無し',
+            3 => 'やや傷や汚れあり',
+            4 => '状態が悪い',
+        ][$this->condition] ?? '';
+    }
 }
