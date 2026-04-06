@@ -23,7 +23,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('item/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::post('/comment', [CommentController::class, 'store'])->middleware('auth');
+Route::post('/comment', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware('auth');
 
 Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle')->middleware('auth');
