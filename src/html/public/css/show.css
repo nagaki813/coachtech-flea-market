@@ -11,7 +11,7 @@
 
 .detail-image-area,
 .detail-info-area {
-    width: 50%;
+    flex: 1;
 }
 
 .detail-image-area img,
@@ -32,55 +32,57 @@
     font-size: 16px;
 }
 
-.icon-like {
-    font-size: 28px;
-    line-height: 1;
-    color: #222;
-}
-
-.icon-like.is-active {
-    color: #ff5a5f;
-}
-
-.icon-comment {
-    font-size: 22px;
-    line-height: 1;
-}
-
-.meta-count {
-    font-size: 14px;
-}
-
 .item-name {
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 8px;
+    color: #222;
 }
 
 .item-brand {
     font-size: 14px;
     color: #555;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .item-price {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    color: #222;
 }
 
 .item-meta {
     display: flex;
-    gap: 24px;
+    gap: 36px;
     margin-bottom: 24px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 40px;
+}
+
+.meta-icon {
+    font-size: 24px;
+    line-height: 1;
+    color: #222;
+}
+
+.meta-count {
     font-size: 14px;
+    color: #222;
 }
 
 .main-button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 44px;
-    line-height: 44px;
+    min-height: 46px;
     text-align: center;
     background: #ff5a5f;
     color: #fff;
@@ -100,10 +102,14 @@
     color: #333;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .inline-form {
     display: inline-block;
+}
+
+.like-form {
     margin-bottom: 20px;
 }
 
@@ -131,30 +137,56 @@
 }
 
 .item-section {
-    margin-top: 28px;
-    padding-top: 20px;
+    margin-top: 32px;
+    padding-top: 24px;
     border-top: 1px solid #ddd;
 }
 
-.item-section h3 {
-    font-size: 20px;
-    margin-bottom: 16px;
+.item-section h3,
+.comment-area h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.item-description {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.info-row {
+    margin-bottom: 20px;
+}
+
+.info-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #333;
 }
 
 .category-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     padding: 0;
-    margin: 8px 0 16px;
+    margin: 0;
     list-style: none;
 }
 
 .category-list li {
-    padding: 4px 12px;
+    padding: 4px 14px;
     background: #f2f2f2;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 12px;
+    color: #333;
 }
 
 .comment-area {
@@ -163,21 +195,10 @@
     border-top: 1px solid #ddd;
 }
 
-.comment-area .main-button {
-    margin-top: 8px;
-    width: 100%;
-}
-
-.comment-area h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
 .comment-textarea {
     width: 100%;
     max-width: 100%;
-    min-height: 160px;
+    min-height: 150px;
     box-sizing: border-box;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -185,39 +206,63 @@
     resize: vertical;
     margin-bottom: 12px;
     background: #fff;
+    font-size: 14px;
+}
+
+.comment-area .main-button {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.empty-comment-text {
+    font-size: 14px;
+    color: #555;
 }
 
 .comment-card {
+    padding: 18px 0;
     border-bottom: 1px solid #ddd;
-    padding: 16px 0;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    flex-shrink: 0;
 }
 
 .comment-user {
     font-weight: 700;
-    margin-bottom: 8px;
+    font-size: 14px;
+    color: #222;
+    margin: 0;
 }
 
-.page-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 32px;
-}
-
-.page-links {
-    width: 1000px;
-    margin: 32px auto 0;
-}
-
-.page-links a {
+.comment-body {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 1.7;
     color: #333;
-    text-decoration: underline;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.comment-delete-form {
+    margin-top: 4px;
 }
 
 @media screen and (max-width: 1024px) {
-
-    .detail-container,
-    .comment-area,
-    .page-links {
+    .detail-container {
         width: calc(100% - 32px);
     }
 
@@ -229,5 +274,18 @@
     .detail-image-area,
     .detail-info-area {
         width: 100%;
+    }
+
+    .item-name {
+        font-size: 26px;
+    }
+
+    .item-price {
+        font-size: 28px;
+    }
+
+    .item-section h3,
+    .comment-area h3 {
+        font-size: 22px;
     }
 }

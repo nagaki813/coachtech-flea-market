@@ -24,11 +24,11 @@
 
             <div class="item-meta">
                 <div class="meta-item">
-                    <span class="icon-like">♡</span>
+                    <span class="meta-icon">♡</span>
                     <span class="meta-count">{{ $item->likes->count() }}</span>
                 </div>
                 <div class="meta-item">
-                    <span class="icon-comment">💬</span>
+                    <span class="meta-icon">💬</span>
                     <span class="meta-count">{{ $item->comments->count() }}</span>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             @endif
 
             @auth
-                <form class="inline-form" action="{{ route('likes.toggle') }}" method="POST">
+                <form class="inline-form like-form" action="{{ route('likes.toggle') }}" method="POST">
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
 
@@ -68,22 +68,51 @@
 
             <div class="item-section">
                 <h3>商品説明</h3>
-                <p>{{ $item->description }}</p>
+                <p class="item-description">{{ $item->description }}</p>
             </div>
 
             <div class="item-section">
                 <h3>商品の情報</h3>
-                <p><strong>カテゴリー：</strong></p>
-                <ul class="category-list">
-                    @foreach ($item->categories as $category)
-                        <li>{{ $category->name }}</li>
-                    @endforeach
-                </ul>
-                <p><strong>商品の状態：</strong>{{ $item->condition_label }}</p>
+                <div class="info-row">
+                    <p class="info-label">カテゴリー</p>
+                    <ul class="category-list">
+                        @foreach ($item->categories as $category)
+                            <li>{{ $category->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="info-row">
+                    <p class="info-label">商品の状態</p>
+                    <p class="info-value">{{ $item->condition_label }}</p>
+                </div>
             </div>
 
             <div class="comment-area">
-                <h3 class="meta-count">コメント({{ $item->comments->count() }})</h3>
+                <h3>コメント({{ $item->comments->count() }})</h3>
+                @if ($item->comments->isEmpty())
+                    <p class="empty-comment-text">コメントはまだありません。</p>
+                @else
+                    @foreach ($item->comments as $comment)
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <div class="comment-avatar"></div>
+                                <p class="comment-user">{{ $comment->user->name }}</p>
+                            </div>
+                            <p class="comment-body">{{ $comment->content }}</p>
+
+                            @auth
+                                @if ($comment->user_id === auth()->id())
+                                    <form class="inline-form comment-delete-form" action="{{ route('comments.destroy',  $comment->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="sub-button" type="submit">削除</button>
+                                    </form>
+                                @endif
+                            @endauth
+                        </div>
+                    @endforeach
+                @endif
                 <form action="{{ route('comments.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
@@ -94,26 +123,6 @@
                     <button class="main-button" type="submit">コメントする</button>
                 </form>
 
-                @if ($item->comments->isEmpty())
-                    <p>コメントはまだありません。</p>
-                @else
-                    @foreach ($item->comments as $comment)
-                        <div class="comment-card">
-                            <p class="comment-user">投稿者: {{ $comment->user->name }}</p>
-                            <p>{{ $comment->content }}</p>
-
-                            @auth
-                                @if ($comment->user_id === auth()->id())
-                                    <form class="inline-form" action="{{ route('comments.destroy',  $comment->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="sub-button" type="submit">削除</button>
-                                    </form>
-                                @endif
-                            @endauth
-                        </div>
-                    @endforeach
-                @endif
             </div>
         </div>
     </div>
