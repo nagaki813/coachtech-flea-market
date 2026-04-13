@@ -8,7 +8,6 @@
 
 @section('content')
 <div class="profile-edit-container">
-    <h2>プロフィール編集</h2>
 
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf

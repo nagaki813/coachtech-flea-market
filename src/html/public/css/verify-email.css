@@ -1,7 +1,7 @@
 .verify-email-container {
     max-width: 1540px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 80px 20px 120px;
 }
 
 .verify-email-content {
@@ -14,17 +14,17 @@
     margin: 0 0 32px;
     color: #000000;
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.9;
 }
 
 .verify-email-status {
-    margin: 0 0 24px;
+    margin: 0 0 20px;
     color: #ff5555;
     font-size: 14px;
 }
 
 .verify-email-form {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .verify-email-button {
@@ -47,7 +47,7 @@
     margin: 0;
 }
 
-.verify-email-logout-link {
+.verify-email-link {
     border: none;
     background: transparent;
     color: #0073cc;
@@ -56,6 +56,26 @@
     text-decoration: none;
 }
 
-.verify-email-logout-link:hover {
+.verify-email-link:hover {
     text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .verify-email-container {
+        padding: 48px 16px 80px;
+    }
+
+    .verify-email-message {
+        font-size: 14px;
+    }
+
+    .verify-email-button {
+        min-width: 160px;
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .verify-email-link {
+        font-size: 13px;
+    }
 }

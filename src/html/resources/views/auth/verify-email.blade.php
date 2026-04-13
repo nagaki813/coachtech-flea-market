@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="verify-email.container">
+<div class="verify-email-container">
     <div class="verify-email-content">
         <p class="verify-email-message">
             登録していただいたメールアドレスに認証メールを送付しました。<br>メール認証を完了してください。
@@ -19,17 +19,17 @@
             </p>
         @endif
 
-        <form action="POST" action="{{ route('verification.send') }}" class="verify-email-form">
+        <form method="POST" action="{{ route('verification.send') }}" class="verify-email-form">
             @csrf
             <button type="submit" class="verify-email-button">
-                認証メールを再送する
+                認証はこちらから
             </button>
         </form>
 
-        <form action="POST" action="{{ route('logout') }}" class="verify-email-logout-form">
+        <form method="POST" action="{{ route('verification.send') }}" class="verify-email-logout-form">
             @csrf
-            <button type="submit" class="verify-email-logout-link">
-                ログアウトはこちら
+            <button type="submit" class="verify-email-link">
+                認証メールを再送する
             </button>
         </form>
     </div>

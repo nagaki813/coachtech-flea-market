@@ -8,6 +8,12 @@ class EmailVerificationResponse implements VerifyEmailResponse
 {
     public function toResponse($request)
     {
-        return redirect()->route('profile.edit');
+        $user = $request->user();
+
+        if (!$user->postal_code) {
+            return redirect()->route('profile.edit');
+        }
+
+        return redirect()->route('mypage');
     }
 }
