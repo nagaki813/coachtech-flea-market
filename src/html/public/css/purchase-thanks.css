@@ -1,0 +1,83 @@
+.purchase-thanks-container {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 120px 20px;
+}
+
+.purchase-thanks-content {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.purchase-thanks-message {
+    margin: 0 0 48px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #000000;
+    position: relative;
+    z-index: 1;
+}
+
+.purchase-thanks-content::before {
+    content: "THANK YOU";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.purchase-thanks-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    height: 46px;
+    padding: 0 24px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+}
+
+.purchase-thanks-button:hover {
+    background: #f7f7f7;
+}
+
+@media screen and (max-width: 768px) {
+    .purchase-thanks-container {
+        padding: 80px 16px;
+    }
+
+    .purchase-thanks-message {
+        font-size: 24px;
+        margin-bottom: 36px;
+    }
+
+    .purchase-thanks-content::before {
+        font-size: 72px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .purchase-thanks-content::before {
+        font-size: 48px;
+    }
+
+    .purchase-thanks-button {
+        min-width: 160px;
+        height: 42px;
+        font-size: 14px;
+    }
+}

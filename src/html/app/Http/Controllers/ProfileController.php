@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Item;
+use App\Models\Purchase;
 
 class ProfileController extends Controller
 {
+
     public function edit()
     {
         $user = auth()->user();

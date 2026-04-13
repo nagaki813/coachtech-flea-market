@@ -27,8 +27,8 @@ Route::post('/comment', [CommentController::class, 'store'])->name('comments.sto
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware('auth');
 
 Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle')->middleware('auth');
-
 Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index')->middleware('auth');
+Route::get('purchase/thanks', [PurchaseController::class, 'thanks'])->name('purchases.thanks')->middleware('auth');
 Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchases.create');
 Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store')->middleware('auth');
 Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchases.address.edit')->middleware('auth');

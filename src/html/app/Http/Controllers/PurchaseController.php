@@ -40,7 +40,7 @@ class PurchaseController extends Controller
 
         session()->forget('purchase_address');
 
-        return redirect()->route('mypage', ['page' => 'buy'])->with('success', '購入しました');
+        return redirect()->route('purchases.thanks');
     }
 
     public function create($item_id)
@@ -84,5 +84,10 @@ class PurchaseController extends Controller
             'address' => auth()->user()->address,
             'building' => auth()->user()->building,
         ];
+    }
+
+    public function thanks()
+    {
+        return view('purchases.thanks');
     }
 }

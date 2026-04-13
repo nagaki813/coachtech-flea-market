@@ -1,94 +1,346 @@
 .mypage-container {
-    background: #fff;
-    border-radius: 10px;
-    padding: 40px;
+    max-width: 1230px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    background: #ffffff;
+    color: #000000;
 }
 
 .mypage-container h2 {
-    margin-top: 0;
-    margin-bottom: 30px;
-    font-size: 32px;
+    display: none;
 }
 
+/* プロフィールエリア */
 .mypage-profile {
-    background: #f8f8f8;
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 30px 40px;
+    border-bottom: 1px solid #d9d9d9;
 }
 
-.mypage-profile p {
-    margin: 0 0 14px;
-    line-height: 1.8;
+.mypage-profile>div {
+    flex-shrink: 0;
 }
 
 .mypage-profile img {
     width: 120px;
     height: 120px;
-    object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 16px;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-profile p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #000000;
+}
+
+.mypage-profile p:first-of-type {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* 未設定時の丸アイコンっぽい見た目はHTMLを変えないと限界があるので最低限 */
+.mypage-profile p:has(+ p),
+.mypage-profile p:last-of-type {
+    line-height: 1.6;
 }
 
 .profile-edit-link {
     display: inline-block;
-    margin-top: 10px;
-    color: #0056b3;
+    padding: 8px 18px;
+    border: 1px solid #ff5555;
+    border-radius: 4px;
+    color: #ff5555;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s;
 }
 
+.profile-edit-link:hover {
+    background: #ff5555;
+    color: #ffffff;
+}
+
+.profile-left {
+    width: 120px;
+    height: 120px;
+}
+
+.profile-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #d9d9d9;
+}
+
+.profile-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.profile-right {
+    display: flex;
+    align-items: center;
+}
+
+.image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #d9d9d9;
+    border-radius: 4px;
+}
+
+.item-name {
+    font-size: 14px;
+    margin-top: 8px;
+    color: #000;
+}
+
+.empty-message {
+    margin-top: 40px;
+    text-align: center;
+    color: #666;
+}
+
+/* タブ */
 .mypage-pages {
     display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
+    align-items: center;
+    gap: 40px;
+    padding: 20px 40px 16px;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 .mypage-pages a {
-    display: inline-block;
-    padding: 12px 20px;
-    background: #e5e5e5;
-    border-radius: 8px;
-    font-size: 14px;
+    position: relative;
+    color: #5f5f5f;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s;
 }
 
+.mypage-pages a:hover {
+    color: #ff5555;
+}
+
+.mypage-pages a.active {
+    color: #ff5555;
+}
+
+.mypage-pages a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -17px;
+    width: 100%;
+    height: 2px;
+    background: #ff5555;
+}
+
+/* セクションタイトルはFigma上かなり控えめ */
 .mypage-section-title {
-    margin-bottom: 24px;
-    font-size: 28px;
+    margin: 30px 0 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
 }
 
+/* 商品一覧 */
 .item-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px 24px;
 }
 
+/* カード */
 .item-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-card img {
     width: 100%;
-    height: 220px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 16px;
+    background: #d9d9d9;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 12px;
 }
 
 .item-card h4 {
-    margin: 0 0 16px;
-    font-size: 26px;
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
 }
 
 .item-card p {
-    margin: 0 0 14px;
-    line-height: 1.7;
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: #666666;
+    line-height: 1.5;
+}
+
+/* Figmaだと一覧では情報をかなり減らした方が近い */
+.item-card p:nth-of-type(2),
+.item-card p:nth-of-type(3) {
+    display: none;
 }
 
 .item-card a {
-    display: inline-block;
     margin-top: 8px;
-    color: #0056b3;
+    font-size: 13px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.item-card a:hover {
+    text-decoration: underline;
+}
+
+/* 画像なし */
+.item-card p:first-child {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #d9d9d9;
+    border-radius: 4px;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    font-size: 0;
+}
+
+/* ページネーション */
+.pagination-wrap {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Laravel標準paginationのざっくり調整 */
+.pagination-wrap nav>div:first-child {
+    display: none;
+}
+
+.pagination-wrap svg {
+    width: 16px;
+    height: 16px;
+}
+
+.pagination-wrap .relative.z-0.inline-flex.shadow-sm.rounded-md {
+    gap: 8px;
+}
+
+.pagination-wrap span,
+.pagination-wrap a {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #333333;
+    background: #ffffff;
+}
+
+.pagination-wrap span[aria-current="page"] span,
+.pagination-wrap span[aria-current="page"] {
+    background: #ff5555;
+    color: #ffffff;
+    border-color: #ff5555;
+}
+
+/* メッセージ */
+.mypage-container>p,
+.mypage-container .mypage-section-title+p {
+    font-size: 14px;
+    color: #666666;
+    margin-top: 20px;
+}
+
+/* タブ active を使う前提 */
+.mypage-pages a.active {
+    color: #ff5555;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 1024px) {
+    .item-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mypage-profile {
+        gap: 40px;
+        padding: 24px 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mypage-container {
+        padding: 24px 16px 60px;
+    }
+
+    .mypage-profile {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .mypage-profile p:first-of-type {
+        font-size: 20px;
+    }
+
+    .mypage-pages {
+        gap: 20px;
+        padding: 16px 12px 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .mypage-pages a.active::after {
+        bottom: -13px;
+    }
+
+    .item-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .item-list {
+        grid-template-columns: 1fr;
+    }
+
+    .mypage-profile img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .profile-edit-link {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
 }

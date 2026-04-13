@@ -8,146 +8,91 @@
 
 @section('content')
     <div class="mypage-container">
-        <h2>マイページ</h2>
-
         <div class="mypage-profile">
-            <p>ユーザー名：{{ $user->name }}</p>
-            <p>メールアドレス：{{ $user->email }}</p>
-            <p>郵便番号：{{ $user->postal_code ?? '未設定' }}</p>
-            <p>住所：{{ $user->address ?? '未設定' }}</p>
-            <p>建物名：{{ $user->building ?? '未設定' }}</p>
+            <div class="profile-left">
+                @if (!empty($user->profile_image))
+                    <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+                @else
+                    <div class="profile-placeholder"></div>
+                @endif
+            </div>
 
-            @if (!empty($user->profile_image))
-                <div>
-                    <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像" width="120">
-                </div>
-            @else
-                <p>プロフィール画像：未設定</p>
-            @endif
+            <div class="profile-center">
+                <h3 class="profile-name">{{ $user->name }}</h3>
+            </div>
 
-            <a class="profile-edit-link" href="{{ route('profile.edit') }}">プロフィールを編集する</a>
+            <div class="profile-right">
+                <a class="profile-edit-link" href="{{ route('profile.edit') }}">
+                    プロフィールを編集
+                </a>
+            </div>
         </div>
 
         <div class="mypage-pages">
-            <a href="{{ route('mypage', ['page' => 'sell']) }}">出品した商品</a>
-            <a href="{{ route('mypage', ['page' => 'buy']) }}">購入した商品</a>
-            <a href="{{ route('mypage', ['page' => 'like']) }}">いいねした商品</a>
+            <a href="{{ route('mypage', ['page' => 'sell']) }}"
+                class="{{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
+            <a href="{{ route('mypage', ['page' => 'buy']) }}"
+                class="{{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
+{{--            <a href="{{ route('mypage', ['page' => 'like']) }}"
+                class="{{ $page === 'like' ? 'active' : '' }}">いいねした商品</a> --}}
         </div>
 
         @if ($page === 'sell')
-            <h3 class="mypage-section-title">出品した商品一覧</h3>
+            <div class="item-list">
+                @forelse ($sellItems as $item)
+                    <div class="item-card">
+                        @if (!empty($item->image_path))
+                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                        @else
+                            <div class="image-placeholder"></div>
+                        @endif
 
-            @if ($sellItems->isEmpty())
-                <p>出品した商品はありません。</p>
-            @else
-                <div class="item-list">
-                    @foreach ($sellItems as $item)
-                        <div class="item-card">
-                            @if (!empty($item->image_path))
-                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
-                            @else
-                                <p>画像無し</p>
-                            @endif
-                            <h4>{{ $item->name }}</h4>
-                            <p>価格：￥{{ number_format($item->price) }}</p>
-
-                            <p>
-                                カテゴリ：
-                                @foreach ($item->categories as $category)
-                                {{ $category->name }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
-                                @endforeach
-                            </p>
-
-                            @if ($item->purchase)
-                                <p>売り切れ</p>
-                            @else
-                                <p>出品中</p>
-                            @endif
-
-                            <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+                        <p class="item-name">{{ $item->name }}</p>
+                    </div>
+                @empty
+                    <p class="empty-message">出品した商品はありません。</p>
+                @endforelse
+            </div>
         @endif
 
         @if ($page === 'buy')
-            <h3 class="mypage-section-title">購入した商品一覧</h3>
-
-            @if ($buyItems->isEmpty())
-                <p>購入した商品はありません。</p>
-            @else
-                <div class="item-list">
-                    @foreach ($buyItems as $item)
-                        <div class="item-card">
-                            @if (!empty($item->image_path))
-                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
-                            @else
-                                <p>画像無し</p>
-                            @endif
-                         <h4>{{ $item->name }}</h4>
-                         <p>価格：￥{{ number_format($item->price) }}</p>
-
-                            <p>
-                                カテゴリ：
-                                @foreach ($item->categories as $category)
-                                    {{ $category->name }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
-                                @endforeach
-                            </p>
-
-                            <p>売り切れ</p>
-
-                            <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+            <div class="item-list">
+                @forelse ($buyItems as $item)
+                    <div class="item-card">
+                        @if (!empty($item->image_path))
+                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                        @else
+                            <div class="image-placeholder"></div>
+                        @endif
+                            <p class="item-name">{{ $item->name }}</p>
+                    </div>
+                @empty
+                    <p class="empty-message">購入した商品はありません。</p>
+                @endforelse
+            </div>
+            <div class="pagination-wrap">
+                {{ $buyItems->links() }}
+            </div>
         @endif
 
         @if ($page === 'like')
-            <h3 class="mypage-section-title">いいねした商品一覧</h3>
-
-            @if ($likeItems->isEmpty())
-                <p>いいねした商品はありません。</p>
-            @else
-                <div class="item-list">
-                    @foreach ($likeItems as $item)
-                     <div class="item-card">
+            <div class="item-list">
+                @forelse ($likeItems as $item)
+                    <div class="item-card">
                         @if (!empty($item->image_path))
-                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" width="120">
-                            @else
-                                <p>画像無し</p>
-                            @endif
-                            <h4>{{ $item->name }}</h4>
-                            <p>価格：￥{{ number_format($item->price) }}</p>
-
-                            <p>
-                                カテゴリ：
-                                @foreach ($item->categories as $category)
-                                    {{ $category->name }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
-                                @endforeach
-                            </p>
-
-                            @if ($item->purchase)
-                                <p>売り切れ</p>
-                            @else
-                                <p>出品中</p>
-                            @endif
-
-                            <a href="{{ route('items.show', $item->id) }}">詳細を見る</a>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                        @else
+                            <div class="image-placeholder"></div>
+                        @endif
+                            <p class="item-name">{{ $item->name }}</p>
+                    </div>
+                @empty
+                    <p class="empty-message">いいねした商品はありません。</p>
+                @endforelse
+            </div>
+            <div class="pagination-wrap">
+                {{ $likeItems->links() }}
+            </div>
         @endif
     </div>
 @endsection
