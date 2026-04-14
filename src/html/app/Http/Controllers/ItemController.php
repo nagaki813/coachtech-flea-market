@@ -14,18 +14,22 @@ class ItemController extends Controller
 
         $query = Item::with(['user', 'categories', 'purchase', 'likes']);
 
+        if (auth()->check()) {
+            $query->where('user_id', '!=', auth()->id());
+        }
+
         if ($keyword !== '') {
             $query->where('name', 'like', '%' . $keyword . '%');
         }
 
         if ($tab === 'mylist') {
-            if(!auth()->check()) {
-                return redirect()->route('login');
+            if(auth()->check()) {
+                $query->whereHas('likes', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
+            } else {
+                $query->whereRaw('0 = 1');
             }
-
-            $query->whereHas('likes', function ($query) {
-                $query->where('user_id', auth()->id());
-            });
         }
 
         $items = $query->latest()

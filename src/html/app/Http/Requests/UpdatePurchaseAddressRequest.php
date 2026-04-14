@@ -24,7 +24,7 @@ class UpdatePurchaseAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'postal_code' => ['required', 'string'],
+            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required', 'string'],
             'building' => ['nullable', 'string'],
         ];
@@ -34,7 +34,10 @@ class UpdatePurchaseAddressRequest extends FormRequest
     {
         return [
             'postal_code.required' => '郵便番号を入力してください。',
+            'postal_code.regex' => '郵便番号はハイフンありの形式で入力してください',
+
             'address.required' => '住所を入力してください。',
+            'address.string' => '住所は文字列で入力してください',
         ];
     }
 }

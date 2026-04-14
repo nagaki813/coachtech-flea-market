@@ -24,9 +24,22 @@
 
             <div class="item-meta">
                 <div class="meta-item">
-                    <span class="meta-icon">♡</span>
+                    @auth
+                        <form class="like-icon-form" action="{{ route('likes.toggle') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="item_id" value="{{ $item->id }}">
+
+                            <button type="submit" class="meta-icon like-icon-button {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? 'liked' : '' }}">
+                                {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? '♥' : '♡' }}
+                            </button>
+                        </form>
+                    @else
+                        <span class="meta-icon">♡</span>
+                    @endauth
+
                     <span class="meta-count">{{ $item->likes->count() }}</span>
                 </div>
+
                 <div class="meta-item">
                     <span class="meta-icon">💬</span>
                     <span class="meta-count">{{ $item->comments->count() }}</span>
@@ -50,21 +63,6 @@
             @else
                 <p class="sold-text">この商品はすでに売り切れです。</p>
             @endif
-
-            @auth
-                <form class="inline-form like-form" action="{{ route('likes.toggle') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="item_id" value="{{ $item->id }}">
-
-                    @if ($item->likes->where('user_id', auth()->id())->isNotEmpty())
-                        <button class="sub-button" type="submit">いいね解除</button>
-                    @else
-                        <button class="sub-button" type="submit">いいねする</button>
-                    @endif
-                </form>
-            @else
-                <p class="notice-text">いいねするにはログインしてください</p>
-            @endauth
 
             <div class="item-section">
                 <h3>商品説明</h3>

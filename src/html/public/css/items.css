@@ -119,7 +119,8 @@
 }
 
 /* 空表示 */
-.items-empty {
+.items-empty,
+.empty-message {
     margin-top: 40px;
     text-align: center;
     color: #666666;

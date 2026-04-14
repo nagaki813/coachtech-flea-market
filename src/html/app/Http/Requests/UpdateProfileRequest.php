@@ -24,7 +24,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string', 'max:255'],
+            'name' => ['required','string', 'max:20'],
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required', 'string', 'max:255'],
             'building' => ['nullable', 'string', 'max:255'],
@@ -37,7 +37,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name.required' => 'ユーザー名を入力してください',
             'name.string' => 'ユーザー名は文字列で入力してください',
-            'name.max' => 'ユーザー名は255文字以内で入力してください',
+            'name.max' => 'ユーザー名は20文字以内で入力してください',
 
             'postal_code.required' => '郵便番号を入力してください',
             'postal_code.regex' => '郵便番号はハイフンありの形式で入力してください',

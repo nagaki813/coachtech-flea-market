@@ -19,6 +19,9 @@
 
         @if ($items->isEmpty())
             <p class="items-empty">商品がありません。</p>
+            @if ($tab === 'mylist' && !auth()->check())
+                <p class="empty-message">マイリストを表示するにはログインが必要です。</p>
+            @endif
         @else
             <div class="items-list">
                 @foreach ($items as $item)
