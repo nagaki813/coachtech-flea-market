@@ -36,11 +36,11 @@
                     <h3 class="purchase-section-title">支払い方法</h3>
 
                     <div class="purchase-section-body">
-                        <select name="payment_method" class="purchase-select">
+                        <select name="payment_method" id="payment_method" class="purchase-select">
                             <option value="">選択してください</option>
                             <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>クレジットカード</option>
                             <option value="bank" {{ old('payment_method') === 'bank' ? 'selected' : '' }}>銀行振込</option>
-                            <option value="convenience" {{ old('convenience') === 'convenience' ? 'selected' : '' }}>コンビニ払い</option>
+                            <option value="convenience" {{ old('payment_method') === 'convenience' ? 'selected' : '' }}>コンビニ払い</option>
                         </select>
 
                         @error('payment_method')
@@ -76,7 +76,17 @@
 
                     <div class="purchase-summary-row">
                         <span>支払い方法</span>
-                        <span class="purchase-summary-note">選択してください</span>
+                        <span class="purchase-summary-note" id="payment-method-display">
+                            @if (old('payment_method') === 'card')
+                                クレジットカード
+                            @elseif (old('payment_method') === 'bank')
+                                銀行振込
+                            @elseif (old('payment_method') === 'convenience')
+                                コンビニ払い
+                            @else
+                                選択してください
+                            @endif
+                        </span>
                     </div>
                 </div>
 
@@ -85,4 +95,29 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentMethodSelect = document.getElementById('payment_method');
+        const paymentMethodDisplay = document.getElementById('payment-method-display');
+
+        function updatePaymentMethodDisplay() {
+            const selectedText = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].text;
+            const selectedValue = paymentMethodSelect.value;
+
+            console.log('value:', selectedValue);
+            console.log('text:', selectedText);
+
+            if (selectedValue=== '') {
+                paymentMethodDisplay.textContent = '選択してください';
+            } else {
+                paymentMethodDisplay.textContent = selectedText;
+            }
+        }
+
+        paymentMethodSelect.addEventListener('change', updatePaymentMethodDisplay);
+
+        updatePaymentMethodDisplay();
+    });
+</script>
 @endsection

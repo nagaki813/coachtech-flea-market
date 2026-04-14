@@ -25,7 +25,7 @@ class StorePurchaseRequest extends FormRequest
     {
         return [
             'item_id' => ['required', 'exists:items,id'],
-            'payment_method' => ['required', 'string'],
+            'payment_method' => ['required', 'in:card,bank,convenience'],
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required', 'string'],
             'building' => ['nullable', 'string'],
@@ -39,6 +39,7 @@ class StorePurchaseRequest extends FormRequest
             'item_id.exists' => '存在しない商品です。',
 
             'payment_method.required' => '支払方法を選択してください。',
+            'payment_method.in' => '正しい支払方法を選択してください。',
 
             'postal_code.required' => '郵便番号を入力してください。',
             'postal_code.regex' => '郵便番号はハイフンありの形式で入力してください',

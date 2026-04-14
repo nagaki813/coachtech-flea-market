@@ -48,4 +48,26 @@ class ItemController extends Controller
 
         return view('items.show', compact('item'));
     }
+
+    public function toggle(Item $item)
+    {
+        $userId = auth()->id();
+
+        $like = $item->likes()->where('user_id', $userId)->first();
+
+        if ($like) {
+            $like->delete();
+            $liked = false;
+        } else {
+            $item->likes()->firstOrCreate([
+                'user_id' => $userId,
+            ]);
+            $liked = true;
+        }
+
+        return response()->json([
+            'liked' => $liked,
+            'likes_count' => $item->likes()->count(),
+        ]);
+    }
 }

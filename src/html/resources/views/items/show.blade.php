@@ -25,19 +25,16 @@
             <div class="item-meta">
                 <div class="meta-item">
                     @auth
-                        <form class="like-icon-form" action="{{ route('likes.toggle') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="item_id" value="{{ $item->id }}">
-
-                            <button type="submit" class="meta-icon like-icon-button {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? 'liked' : '' }}">
-                                {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? '♥' : '♡' }}
-                            </button>
-                        </form>
+                        <button id="like-button" data-item-id="{{ $item->id }}" type="button" class="meta-icon like-icon-button {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? 'liked' : '' }}">
+                        <span id="like-icon">
+                            {{ $item->likes->where('user_id', auth()->id())->isNotEmpty() ? '♥' : '♡' }}
+                        </span>
+                    </button>
                     @else
                         <span class="meta-icon">♡</span>
                     @endauth
 
-                    <span class="meta-count">{{ $item->likes->count() }}</span>
+                    <span class="meta-count" id="like-count">{{ $item->likes->count() }}</span>
                 </div>
 
                 <div class="meta-item">
@@ -125,4 +122,54 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('like-button');
+    const icon = document.getElementById('like-icon');
+    const likeCount = document.getElementById('like-count');
+
+    if (!button || !icon || !likeCount) {
+        return;
+    }
+
+    let isProcessing = false;
+
+    button.addEventListener('click', async function () {
+        if (isProcessing) {
+            return;
+        }
+
+        isProcessing = true;
+        button.disabled = true;
+
+        const itemId = button.dataset.itemId;
+
+        try {
+            const response = await fetch(`/likes/toggle/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('いいねの更新に失敗しました');
+            }
+
+            const data = await response.json();
+
+            icon.textContent = data.liked ? '♥' : '♡';
+            likeCount.textContent = data.likes_count;
+            button.classList.toggle('liked', data.liked);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            isProcessing = false;
+            button.disabled = false;
+        }
+    });
+});
+</script>
 @endsection
