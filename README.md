@@ -74,8 +74,8 @@ Laravelを用いて作成したフリマアプリです。
 ### Dockerビルド
 
 ```bash
-git clone <リポジトリURL>
-cd <プロジェクト名>
+git clone git@github.com:nagaki813/coachtech-flea-market.git
+cd coachtech-flea-market
 docker compose up -d --build
 ```
 
