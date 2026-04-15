@@ -25,7 +25,7 @@ class StorePurchaseRequest extends FormRequest
     {
         return [
             'item_id' => ['required', 'exists:items,id'],
-            'payment_method' => ['required', 'in:card,bank,convenience'],
+            'payment_method' => ['required', 'in:card,convenience'],
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required', 'string'],
             'building' => ['nullable', 'string'],

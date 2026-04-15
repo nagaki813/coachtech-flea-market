@@ -29,7 +29,7 @@
                         <a class="item-card__link" href="{{ route('items.show', ['item' => $item->id]) }}">
                             <div class="item-card__image-wrapper">
                                 @if (!empty($item->image_path))
-                                    <img class="item-card__image" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                                    <img class="item-card__image" src="{{ \Illuminate\Support\Str::startsWith($item->image_path, ['http://', 'https://']) ? $item->image_path : asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
                                 @else
                                     <div class="item-card__image--empty"></div>
                                 @endif

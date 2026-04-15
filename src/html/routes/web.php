@@ -29,11 +29,14 @@ Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name
 
 Route::post('/likes/toggle/{item}', [ItemController::class, 'toggle'])->middleware('auth')->name('likes.toggle');
 Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index')->middleware('auth');
-Route::get('purchase/thanks', [PurchaseController::class, 'thanks'])->name('purchases.thanks')->middleware('auth');
-Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchases.create');
-Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store')->middleware('auth');
-Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchases.address.edit')->middleware('auth');
-Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchases.address.update')->middleware('auth');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('purchase/thanks', [PurchaseController::class, 'thanks'])->name('purchases.thanks');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchases.create');
+    Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchases.address.edit');
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchases.address.update');
+});
 
 Route::middleware('auth')->group(function() {
     Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage');
@@ -48,3 +51,5 @@ Route::middleware('auth')->group(function() {
 
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+
+Route::get('/stripe/success', [PurchaseController::class, 'stripeSuccess'])->middleware(['auth', 'verified'])->name('stripe.success');

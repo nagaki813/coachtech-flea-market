@@ -11,7 +11,7 @@
     <div class="detail-card">
         <div class="detail-image-area">
             @if (!empty($item->image_path))
-                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                <img class="item-card__image" src="{{ \Illuminate\Support\Str::startsWith($item->image_path, ['http://', 'https://']) ? $item->image_path : asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
             @else
                 <div class="detail-image detail-image--empty">画像無し</div>
             @endif
