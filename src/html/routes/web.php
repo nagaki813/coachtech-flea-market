@@ -8,6 +8,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,6 @@ Route::get('item/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::post('/comment', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware('auth');
 
-Route::post('/like', [LikeController::class, 'toggle'])->name('likes.toggle')->middleware('auth');
 Route::post('/likes/toggle/{item}', [ItemController::class, 'toggle'])->middleware('auth')->name('likes.toggle');
 Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index')->middleware('auth');
 Route::get('purchase/thanks', [PurchaseController::class, 'thanks'])->name('purchases.thanks')->middleware('auth');
@@ -45,3 +45,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
+
+Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+Route::post('/login', [AuthController::class, 'login'])->name('login.store');

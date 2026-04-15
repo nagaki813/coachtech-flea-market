@@ -10,7 +10,7 @@
 <div class="auth-container">
     <h2>ログイン</h2>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login.store') }}">
         @csrf
 
         <div class="auth-form-group">
