@@ -37,11 +37,17 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
             return back()
                 ->withErrors([
-                    'email' => 'メールアドレスまたはパスワードが正しくありません。'
+                    'email' => 'パスワードと一致しません'
                 ])->onlyInput('email');
         }
 
         $request->session()->regenerate();
+
+        $user = Auth::user();
+
+        if (! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
 
         return redirect()->intended('/mypage');
     }
